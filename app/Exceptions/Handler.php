@@ -12,6 +12,7 @@ use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\RequestException;
 
 class Handler extends ExceptionHandler
 {
@@ -59,6 +60,11 @@ class Handler extends ExceptionHandler
             $message = Response::$statusTexts[$code];
 
             return $this->errorResponse($message, $code);
+        }
+
+        if($exception instanceof RequestException){
+            $message = $exception->getMessage();
+            return $this->errorResponse($message, Response::HTTP_NOT_FOUND);
         }
 
         if ($exception instanceof ModelNotFoundException) {

@@ -39,7 +39,7 @@ class AuthServiceProvider extends ServiceProvider
         // });
 
         LumenPassport::routes($this->app);
-        LumenPassport::tokensExpireIn(Carbon::now()->addMinute(1)); 
+        LumenPassport::tokensExpireIn(Carbon::now()->addMinute(300)); 
         LumenPassport::refreshTokensExpireIn(Carbon::now()->addDay(1)); 
     }
 }

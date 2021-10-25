@@ -64,6 +64,8 @@ $app->configure('app');
 $app->configure('services');
 $app->configure('auth');
 $app->configure('permission');
+$app->configure('cors');
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -85,6 +87,8 @@ $app->routeMiddleware([
     'client.credentials' => Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
     'permission' => Spatie\Permission\Middlewares\PermissionMiddleware::class,
     'role'       => Spatie\Permission\Middlewares\RoleMiddleware::class,
+	'cors'       =>    App\Http\Middleware\CorsMiddleware::class,
+
 ]);
 
 /*
@@ -106,6 +110,8 @@ $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 
 $app->alias('cache', \Illuminate\Cache\CacheManager::class);  // if you don't have this already
 $app->register(Spatie\Permission\PermissionServiceProvider::class);
+//$app->register(App\Http\Middleware\CorsMiddleware::class);
+
 
 /*
 |--------------------------------------------------------------------------

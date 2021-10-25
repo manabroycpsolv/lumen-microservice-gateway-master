@@ -25,6 +25,12 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
+            'role_id' => 'required',
+            'all_cities' => 'required',
+            'all_customers' => 'required',
+            'is_customer' => 'required',
+           // 'remember_token' => 'required|email|unique:users,email',
+            
         ];
 
         $this->validate($request, $rules);

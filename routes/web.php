@@ -15,47 +15,22 @@
 
 // User Register API
 $router->post('/signup', 'AuthController@signup');
-$router->post('/signin', 'AuthController@signin');
+
+$router->group(['middleware' => 'cors'], function () use ($router) {
+    $router->post('/signin', 'AuthController@signin');
+});
+
 $router->post('/refresh-token', 'AuthController@refresh_token');
 
 
-$router->group(['middleware' => 'client.credentials'], function () use ($router) {
-    /**
-     * Routes for authors
-     */
-    $router->get('/authors', 'AuthorController@index');
-    $router->post('/authors', 'AuthorController@store');
-    $router->get('/authors/{author}', 'AuthorController@show');
-    $router->put('/authors/{author}', 'AuthorController@update');
-    $router->patch('/authors/{author}', 'AuthorController@update');
-    $router->delete('/authors/{author}', 'AuthorController@destroy');
-
-    /**
-     * Routes for books
-     */
-    $router->get('/books', 'BookController@index');
-    $router->post('/books', 'BookController@store');
-    $router->get('/books/{book}', 'BookController@show');
-    $router->put('/books/{book}', 'BookController@update');
-    $router->patch('/books/{book}', 'BookController@update');
-    $router->delete('/books/{book}', 'BookController@destroy');
-
-    /**
-     * Routes for users
-     */
-    $router->get('/users', 'UserController@index');
-    $router->post('/users', 'UserController@store');
-    $router->get('/users/{user}', 'UserController@show');
-    $router->put('/users/{user}', 'UserController@update');
-    $router->patch('/users/{user}', 'UserController@update');
-    $router->delete('/users/{user}', 'UserController@destroy');
-});
-
-/**
- * User credentials protected routes
- */
 $router->group(['middleware' => 'auth:api'], function () use ($router) {
-    $router->get('/users-me', 'UserController@me');
+    /**
+     * Routes for sample microservices
+     */
+    $router->get('/samples', 'SampleController@index');
+    $router->post('/samples', 'SampleController@store');
+    $router->get('/samples/{sample}', 'SampleController@show');
+    $router->put('/samples/{sample}', 'SampleController@update');
+    $router->patch('/samples/{sample}', 'SampleController@update');
+    $router->delete('/samples/{sample}', 'SampleController@destroy');
 });
-
-
